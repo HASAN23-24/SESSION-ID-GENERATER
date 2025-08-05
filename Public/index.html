@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WhatsApp Session Generator</title>
+  <style>
+    body { font-family: Arial; text-align: center; background: #111; color: #fff; }
+    img { margin: 20px; border: 3px solid #00ff99; border-radius: 10px; }
+    button { padding: 10px 20px; font-size: 18px; background: #00ff99; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🔥 WhatsApp Session ID Generator</h1>
+  <button onclick="generateQR()">Generate Session QR</button>
+  <div id="qr"></div>
+  <pre id="session"></pre>
+
+  <script>
+    async function generateQR() {
+      document.getElementById("qr").innerHTML = "<p>⏳ Generating QR...</p>";
+      const res = await fetch("/generate");
+      const data = await res.json();
+
+      if (data.qr) {
+        document.getElementById("qr").innerHTML = `<img src="${data.qr}" width="300">`;
+      }
+      if (data.session) {
+        document.getElementById("session").textContent = data.session;
+      }
+    }
+  </script>
+</body>
+</html>
